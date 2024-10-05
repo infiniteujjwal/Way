@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1>Track Your Project Progress</h1>
-        <form id="timeline-form">
+        <form id="timeline-form" class="timeline-form">
             <div class="form-group">
                 <label for="start">Start Date:</label>
                 <input type="date" id="start" required>
@@ -22,12 +22,12 @@
                 <label for="end">End Date:</label>
                 <input type="date" id="end" required>
             </div>
-            <button type="submit">Generate Timeline</button>
+            <button type="submit" class="btn">Generate Timeline</button>
         </form>
 
-        <div id="timeline">
+        <div id="timeline" class="timeline">
             <h2>Your Timeline:</h2>
-            <div id="path-visual"></div>
+            <div id="path-visual" class="path-visual"></div>
         </div>
     </div>
     
