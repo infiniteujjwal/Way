@@ -1,25 +1,35 @@
 document.getElementById('timeline-form').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    // Get user input values
     const startDate = document.getElementById('start').value;
     const milestoneDate = document.getElementById('milestone').value;
     const endDate = document.getElementById('end').value;
 
-    // Check if dates are valid
+    if (!startDate || !milestoneDate || !endDate) {
+        alert("Please fill in all the dates.");
+        return;
+    }
+
     if (new Date(startDate) >= new Date(milestoneDate) || new Date(milestoneDate) >= new Date(endDate)) {
         alert('Please ensure the dates are in proper order: Start < Milestone < End.');
         return;
     }
 
-    // Generate the visual timeline
     const pathVisual = document.getElementById('path-visual');
-    pathVisual.innerHTML = ''; // Clear any existing timeline
+    pathVisual.innerHTML = ''; // Clear previous timeline
 
-    // Create the visual path
-    const startMilestone = createMilestone('Start');
-    const milestone = createMilestone('Milestone');
-    const endMilestone = createMilestone('End');
+    // Calculate proportional spacing for milestones
+    const startTime = new Date(startDate).getTime();
+    const milestoneTime = new Date(milestoneDate).getTime();
+    const endTime = new Date(endDate).getTime();
+
+    const totalDuration = endTime - startTime;
+    const milestonePosition = ((milestoneTime - startTime) / totalDuration) * 100;
+
+    // Create timeline elements
+    const startMilestone = createMilestone('Start', startDate);
+    const milestone = createMilestone('Milestone', milestoneDate);
+    const endMilestone = createMilestone('End', endDate);
 
     const line1 = createLine();
     const line2 = createLine();
@@ -27,15 +37,23 @@ document.getElementById('timeline-form').addEventListener('submit', function(eve
     // Add elements to the timeline
     pathVisual.appendChild(startMilestone);
     pathVisual.appendChild(line1);
+    line1.style.flex = `${milestonePosition}%`;
     pathVisual.appendChild(milestone);
     pathVisual.appendChild(line2);
+    line2.style.flex = `${100 - milestonePosition}%`;
     pathVisual.appendChild(endMilestone);
 });
 
-function createMilestone(text) {
+function createMilestone(text, date) {
     const milestone = document.createElement('div');
     milestone.classList.add('milestone');
-    milestone.textContent = text;
+    milestone.innerHTML = `<span>${text}</span>`;
+    
+    const tooltip = document.createElement('div');
+    tooltip.classList.add('tooltip');
+    tooltip.textContent = `Date: ${date}`;
+    milestone.appendChild(tooltip);
+
     return milestone;
 }
 
