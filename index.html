@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Timeline Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Track Your Project Progress</h1>
+        <form id="timeline-form">
+            <div class="form-group">
+                <label for="start">Start Date:</label>
+                <input type="date" id="start" required>
+            </div>
+            <div class="form-group">
+                <label for="milestone">Mid Milestone Date:</label>
+                <input type="date" id="milestone" required>
+            </div>
+            <div class="form-group">
+                <label for="end">End Date:</label>
+                <input type="date" id="end" required>
+            </div>
+            <button type="submit">Generate Timeline</button>
+        </form>
+
+        <div id="timeline">
+            <h2>Your Timeline:</h2>
+            <div id="path-visual"></div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
